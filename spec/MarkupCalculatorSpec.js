@@ -5,4 +5,12 @@ describe("MarkupCalculator", function () {
     markupCalculator = new MarkupCalculator();
   });
 
+  it("should return a result", function () {
+    var input = {},
+        result = markupCalculator.calculate(input);
+
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+  });
+
 });
