@@ -5,14 +5,6 @@ describe("MarkupCalculator", function () {
     markupCalculator = new MarkupCalculator();
   });
 
-  it("should return a result", function () {
-    var input = {},
-        result = markupCalculator.calculate(input);
-
-    expect(result).toBeDefined();
-    expect(result).not.toBeNull();
-  });
-
 
   describe("base price", function () {
 
@@ -113,6 +105,68 @@ describe("MarkupCalculator", function () {
       var result = markupCalculator.calculateCategoryMarkup(100, '');
 
       expect(result).toEqual(0);
+    });
+  });
+
+
+  describe("calculate total markup", function () {
+
+    it("should return a result", function () {
+      var input = {},
+          result = markupCalculator.calculate(input);
+
+      expect(result).toBeDefined();
+      expect(result).not.toBeNull();
+    });
+
+    it("should return a correct result when not given any parameters", function () {
+      var input = {},
+          result = markupCalculator.calculate(input);
+
+      expect(result).toEqual(0);
+    });
+
+
+    it("should return a correct result when only given base price", function () {
+      var input = {
+            basePrice: 1000
+          },
+          result = markupCalculator.calculate(input);
+
+      expect(result).toEqual(1062.6);
+    });
+
+    it("should return a correct result for values: $1299.99, 3 people, food", function () {
+      var input = {
+            basePrice: 1299.99,
+            people: 3,
+            category: 'food'
+          },
+          result = markupCalculator.calculate(input);
+
+      expect(result).toEqual(1591.58);
+    });
+
+    it("should return a correct result for values: $5432.00, 1 person, drugs", function () {
+      var input = {
+            basePrice: 5432.00,
+            people: 1,
+            category: 'drugs'
+          },
+          result = markupCalculator.calculate(input);
+
+      expect(result).toEqual(6199.81);
+    });
+
+    it("should return a correct result for values: $12456.95, 4 people, books", function () {
+      var input = {
+            basePrice: 12456.95,
+            people: 4,
+            category: 'books'
+          },
+          result = markupCalculator.calculate(input);
+
+      expect(result).toEqual(13707.63);
     });
   });
 });
