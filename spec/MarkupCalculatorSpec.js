@@ -28,10 +28,29 @@ describe("MarkupCalculator", function () {
 
   describe("flat markup", function () {
 
-    it("should calculate the flat markup correctly when given valid input", function () {
+    it("should return a result", function () {
+      var result = markupCalculator.calculateFlatMarkup(1);
+
+      expect(result).toBeDefined();
+      expect(result).not.toBeNull();
+    });
+
+    it("should calculate the flat markup correctly for positive integers", function () {
       var result = markupCalculator.calculateFlatMarkup(100);
 
       expect(result).toEqual(5);
+    });
+
+    it("should calculate the flat markup correctly for value zero", function () {
+      var result = markupCalculator.calculateFlatMarkup(0);
+
+      expect(result).toEqual(0);
+    });
+
+    it("should return NaN when no parameters are passed", function () {
+      var result = markupCalculator.calculateFlatMarkup();
+
+      expect(result).toEqual(NaN);
     });
   });
 
