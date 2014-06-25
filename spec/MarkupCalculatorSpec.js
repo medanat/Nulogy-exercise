@@ -18,7 +18,7 @@ describe("MarkupCalculator", function () {
 
     it("should not throw an error when given valid base price", function () {
       var input = {
-            basePrice: -100
+            basePrice: 100
           },
           calculation = function () {
             return markupCalculator.calculate(input);

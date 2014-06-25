@@ -13,11 +13,17 @@ function MarkupCalculator () {
  */
 MarkupCalculator.prototype.calculate = function (options) {
   var basePrice = options.basePrice || 0,
-      total = this.calculateFlatMarkup(basePrice);
+      basePlusMarkup;
 
-  return total;
+  if (basePrice < 0) {
+    throw new Error("invalid base price");
+  }
+
+  basePlusMarkup = this.calculateFlatMarkup(basePrice);
+
+  return basePlusMarkup;
 };
 
 MarkupCalculator.prototype.calculateFlatMarkup = function (basePrice) {
-  return basePrice;
+  return basePrice * (1 + this.flatMarkup);
 };
