@@ -57,8 +57,35 @@ describe("MarkupCalculator", function () {
   });
 
 
-  describe("people", function () {
+  describe("people markup", function () {
 
+    it("should not throw an error when given valid people number", function () {
+      var input = {
+            people: 1
+          },
+          calculation = function () {
+            return markupCalculator.calculatePeopleMarkup(input);
+          };
+
+      expect(calculation).not.toThrowError("invalid people number");
+    });
+
+    it("should throw an error when given invalid people number", function () {
+      var input = {
+            people: -3
+          },
+          calculation = function () {
+            return markupCalculator.calculatePeopleMarkup(input);
+          };
+
+      expect(calculation).toThrowError("invalid people number");
+    });
+
+    it("should calculate the people markup correctly when given valid input", function () {
+      var result = markupCalculator.calculatePeopleMarkup(100, 2);
+
+      expect(result).toEqual(102.4);
+    });
   });
 
 

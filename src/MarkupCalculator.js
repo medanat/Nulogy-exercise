@@ -19,11 +19,16 @@ MarkupCalculator.prototype.calculate = function (options) {
     throw new Error("invalid base price");
   }
 
-  basePlusMarkup = this.calculateFlatMarkup(basePrice);
+  basePlusFlat = this.calculateFlatMarkup(basePrice);
 
-  return basePlusMarkup;
+  return basePlusFlat;
 };
 
 MarkupCalculator.prototype.calculateFlatMarkup = function (basePrice) {
   return basePrice * (1 + this.flatMarkup);
+};
+
+
+MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, people) {
+  return basePlusFlat;
 };
