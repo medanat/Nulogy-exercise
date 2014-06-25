@@ -26,7 +26,7 @@ MarkupCalculator.prototype.calculate = function (options) {
       basePlusFlat = 0,
       total = 0;
 
-  validateBasePrice(basePrice);
+  this.validateBasePrice(basePrice);
   basePlusFlat = basePrice + this.calculateFlatMarkup(basePrice);
   total += basePlusFlat;
   total += this.calculatePeopleMarkup(basePlusFlat, people);
@@ -74,12 +74,11 @@ MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, cat
 };
 
 
-
 /**
  * Validate base price is a positive float or zero
  *   @param {float} basePrice
  */
-function validateBasePrice (basePrice) {
+MarkupCalculator.prototype.validateBasePrice = function (basePrice) {
   if (basePrice < 0) {
     throw new Error("invalid base price");
   }
