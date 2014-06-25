@@ -83,7 +83,36 @@ describe("MarkupCalculator", function () {
   });
 
 
-  describe("category", function () {
+  describe("category markup", function () {
 
+    it("should calculate the category markup correctly for pharmaceuticals", function () {
+      var result = markupCalculator.calculateCategoryMarkup(100, 'drugs');
+
+      expect(result).toEqual(7.5);
+    });
+
+    it("should calculate the category markup correctly for food", function () {
+      var result = markupCalculator.calculateCategoryMarkup(100, 'food');
+
+      expect(result).toEqual(13);
+    });
+
+    it("should calculate the category markup correctly for electronics", function () {
+      var result = markupCalculator.calculateCategoryMarkup(100, 'electronics');
+
+      expect(result).toEqual(2);
+    });
+
+    it("should calculate the category markup correctly for non-marked up categories", function () {
+      var result = markupCalculator.calculateCategoryMarkup(100, 'books');
+
+      expect(result).toEqual(0);
+    });
+
+    it("should calculate the category markup correctly when no category is provided", function () {
+      var result = markupCalculator.calculateCategoryMarkup(100, '');
+
+      expect(result).toEqual(0);
+    });
   });
 });

@@ -48,3 +48,14 @@ MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, peopl
 
   return basePlusFlat * (people * this.peopleMarkup);
 };
+
+
+/**
+ * Calculate category markup price based on (base price + flat markup)
+ * and category type
+ *   @param {integer} basePlusFlat
+ *   @param {string} category
+ */
+MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, category) {
+  return basePlusFlat;
+};
