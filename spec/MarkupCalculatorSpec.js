@@ -57,6 +57,13 @@ describe("MarkupCalculator", function () {
 
   describe("people markup", function () {
 
+    it("should return a result", function () {
+      var result = markupCalculator.calculatePeopleMarkup(1, 1);
+
+      expect(result).toBeDefined();
+      expect(result).not.toBeNull();
+    });
+
     it("should not throw an error when given valid people number", function () {
       var calculation = function () {
             return markupCalculator.calculatePeopleMarkup(100, 1);
@@ -77,6 +84,12 @@ describe("MarkupCalculator", function () {
       var result = markupCalculator.calculatePeopleMarkup(100, 2);
 
       expect(result).toEqual(2.4);
+    });
+
+    it("should return NaN when no parameters are passed", function () {
+      var result = markupCalculator.calculatePeopleMarkup();
+
+      expect(result).toEqual(NaN);
     });
   });
 
