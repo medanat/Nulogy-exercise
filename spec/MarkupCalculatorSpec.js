@@ -52,7 +52,7 @@ describe("MarkupCalculator", function () {
     it("should calculate the flat markup correctly when given valid input", function () {
       var result = markupCalculator.calculateFlatMarkup(100);
 
-      expect(result).toEqual(105);
+      expect(result).toEqual(5);
     });
   });
 
@@ -60,22 +60,16 @@ describe("MarkupCalculator", function () {
   describe("people markup", function () {
 
     it("should not throw an error when given valid people number", function () {
-      var input = {
-            people: 1
-          },
-          calculation = function () {
-            return markupCalculator.calculatePeopleMarkup(input);
+      var calculation = function () {
+            return markupCalculator.calculatePeopleMarkup(100, 1);
           };
 
       expect(calculation).not.toThrowError("invalid people number");
     });
 
     it("should throw an error when given invalid people number", function () {
-      var input = {
-            people: -3
-          },
-          calculation = function () {
-            return markupCalculator.calculatePeopleMarkup(input);
+      var calculation = function () {
+            return markupCalculator.calculatePeopleMarkup(100, -3);
           };
 
       expect(calculation).toThrowError("invalid people number");
@@ -84,7 +78,7 @@ describe("MarkupCalculator", function () {
     it("should calculate the people markup correctly when given valid input", function () {
       var result = markupCalculator.calculatePeopleMarkup(100, 2);
 
-      expect(result).toEqual(102.4);
+      expect(result).toEqual(2.4);
     });
   });
 
