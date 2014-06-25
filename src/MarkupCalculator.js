@@ -3,6 +3,12 @@ function MarkupCalculator () {
   this.flatMarkup = 0.05;
   // Predefined markup per person on a job
   this.peopleMarkup = 0.012;
+
+  this.categoryMarkupsMap = {
+    drugs: 0.075,
+    food: 0.13,
+    electronics: 0.02
+  };
 }
 
 /**
@@ -57,5 +63,7 @@ MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, peopl
  *   @param {string} category
  */
 MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, category) {
-  return basePlusFlat;
+  var markup = this.categoryMarkupsMap[category] || 0;
+
+  return basePlusFlat * markup;
 };
