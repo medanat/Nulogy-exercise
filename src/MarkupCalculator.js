@@ -17,7 +17,7 @@ function MarkupCalculator () {
  *     basePrice {float} - defaults to 0
  *     people {integer} - defaults to 1
  *     category {string} - optional
- *
+ *   @return {float|integer}
  */
 MarkupCalculator.prototype.calculate = function (options) {
   var basePrice = options.basePrice || 0,
@@ -26,10 +26,7 @@ MarkupCalculator.prototype.calculate = function (options) {
       basePlusFlat = 0,
       total = 0;
 
-  if (basePrice < 0) {
-    throw new Error("invalid base price");
-  }
-
+  validateBasePrice(basePrice);
   basePlusFlat = basePrice + this.calculateFlatMarkup(basePrice);
   total += basePlusFlat;
   total += this.calculatePeopleMarkup(basePlusFlat, people);
@@ -41,6 +38,7 @@ MarkupCalculator.prototype.calculate = function (options) {
 /**
  * Calculate flat markup price based on base price
  *   @param {integer} basePrice
+ *   @return {float|integer}
  */
 MarkupCalculator.prototype.calculateFlatMarkup = function (basePrice) {
   return basePrice * this.flatMarkup;
@@ -51,6 +49,7 @@ MarkupCalculator.prototype.calculateFlatMarkup = function (basePrice) {
  * and number of people
  *   @param {float} basePlusFlat
  *   @param {integer} people
+ *   @return {float|integer}
  */
 MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, people) {
   if (people < 1) {
@@ -66,6 +65,7 @@ MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, peopl
  * and category type
  *   @param {float} basePlusFlat
  *   @param {string} category
+ *   @return {float|integer}
  */
 MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, category) {
   var markup = this.categoryMarkupsMap[category] || 0;
@@ -74,9 +74,22 @@ MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, cat
 };
 
 
+
 /**
- * Round a number to two decimal places.
+ * Validate base price is a positive float or zero
+ *   @param {float} basePrice
+ */
+function validateBasePrice (basePrice) {
+  if (basePrice < 0) {
+    throw new Error("invalid base price");
+  }
+}
+
+
+/**
+ * Round a number to two decimal places
  *   @param {float} number
+ *   @return {float|integer}
  */
 function roundToTwoDecimalPlaces (number) {
   return parseFloat(number.toFixed(2));
