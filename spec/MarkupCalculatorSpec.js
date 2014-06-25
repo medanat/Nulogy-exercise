@@ -96,6 +96,13 @@ describe("MarkupCalculator", function () {
 
   describe("category markup", function () {
 
+    it("should return a result", function () {
+      var result = markupCalculator.calculateCategoryMarkup(1, 'abc');
+
+      expect(result).toBeDefined();
+      expect(result).not.toBeNull();
+    });
+
     it("should calculate the category markup correctly for pharmaceuticals", function () {
       var result = markupCalculator.calculateCategoryMarkup(100, 'drugs');
 
@@ -121,9 +128,15 @@ describe("MarkupCalculator", function () {
     });
 
     it("should calculate the category markup correctly when no category is provided", function () {
-      var result = markupCalculator.calculateCategoryMarkup(100, '');
+      var result = markupCalculator.calculateCategoryMarkup(100);
 
       expect(result).toEqual(0);
+    });
+
+    it("should return NaN when no parameters are passed", function () {
+      var result = markupCalculator.calculateCategoryMarkup();
+
+      expect(result).toEqual(NaN);
     });
   });
 
