@@ -3,7 +3,7 @@ function MarkupCalculator () {
   this.flatMarkup = 0.05;
   // Predefined markup per person on a job
   this.peopleMarkup = 0.012;
-
+  // Predefined markup for specific categories
   this.categoryMarkupsMap = {
     drugs: 0.075,
     food: 0.13,
@@ -22,15 +22,20 @@ function MarkupCalculator () {
 MarkupCalculator.prototype.calculate = function (options) {
   var basePrice = options.basePrice || 0,
       people = options.people || 1,
-      basePlusMarkup;
+      category = options.category,
+      basePlusFlat = 0,
+      total = 0;
 
   if (basePrice < 0) {
     throw new Error("invalid base price");
   }
 
   basePlusFlat = basePrice + this.calculateFlatMarkup(basePrice);
+  total += basePlusFlat;
+  total += this.calculatePeopleMarkup(basePlusFlat, people);
+  total += this.calculateCategoryMarkup(basePlusFlat, category);
 
-  return basePlusFlat + this.calculatePeopleMarkup(basePlusFlat, people);
+  return roundToTwoDecimalPlaces(total);
 };
 
 /**
@@ -44,7 +49,7 @@ MarkupCalculator.prototype.calculateFlatMarkup = function (basePrice) {
 /**
  * Calculate people markup price based on (base price + flat markup)
  * and number of people
- *   @param {integer} basePlusFlat
+ *   @param {float} basePlusFlat
  *   @param {integer} people
  */
 MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, people) {
@@ -59,7 +64,7 @@ MarkupCalculator.prototype.calculatePeopleMarkup = function (basePlusFlat, peopl
 /**
  * Calculate category markup price based on (base price + flat markup)
  * and category type
- *   @param {integer} basePlusFlat
+ *   @param {float} basePlusFlat
  *   @param {string} category
  */
 MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, category) {
@@ -67,3 +72,12 @@ MarkupCalculator.prototype.calculateCategoryMarkup = function (basePlusFlat, cat
 
   return basePlusFlat * markup;
 };
+
+
+/**
+ * Round a number to two decimal places.
+ *   @param {float} number
+ */
+function roundToTwoDecimalPlaces (number) {
+  return parseFloat(number.toFixed(2));
+}
