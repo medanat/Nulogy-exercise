@@ -151,7 +151,7 @@ describe("MarkupCalculator", function () {
       expect(result).not.toBeNull();
     });
 
-    it("should return a correct result when not given any parameters", function () {
+    it("should return a correct result of zero when not given any parameters", function () {
       var input = {},
           result = markupCalculator.calculate(input);
 
@@ -159,13 +159,23 @@ describe("MarkupCalculator", function () {
     });
 
 
-    it("should return a correct result when only given base price", function () {
+    it("should return a correct result and default to 1 person when only given base price and no category specified", function () {
       var input = {
             basePrice: 1000
           },
           result = markupCalculator.calculate(input);
 
       expect(result).toEqual(1062.6);
+    });
+
+    it("should return a correct result and default to 1 person when only given base price and a marked up category", function () {
+      var input = {
+            basePrice: 1000,
+            category: 'electronics'
+          },
+          result = markupCalculator.calculate(input);
+
+      expect(result).toEqual(1083.6);
     });
 
     it("should return a correct result for values: $1299.99, 3 people, food", function () {
@@ -199,6 +209,32 @@ describe("MarkupCalculator", function () {
           result = markupCalculator.calculate(input);
 
       expect(result).toEqual(13707.63);
+    });
+
+    it("should throw an error when given invalid base price", function () {
+      var input = {
+            basePrice: -100,
+            people: 1,
+            category: 'food'
+          },
+          calculation = function () {
+            return markupCalculator.calculate(input);
+          };
+
+      expect(calculation).toThrowError("invalid base price");
+    });
+
+    it("should throw an error when given invalid people number", function () {
+      var input = {
+            basePrice: 100,
+            people: -12,
+            category: 'food'
+          },
+          calculation = function () {
+            return markupCalculator.calculate(input);
+          };
+
+      expect(calculation).toThrowError("invalid people number");
     });
   });
 });
